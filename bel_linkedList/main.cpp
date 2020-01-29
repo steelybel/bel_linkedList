@@ -25,6 +25,7 @@ int main()
 	{
 		std::cout << "yooo wtf" << std::endl;
 	}
+	list.resize(13);
 	std::cin >> input;
 	std::cout << std::endl;
 	return 0;

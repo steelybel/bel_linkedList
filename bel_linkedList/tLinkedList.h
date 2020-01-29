@@ -122,6 +122,35 @@ inline bool tForwardList<T>::empty() const
 }
 
 template<typename T>
+inline void tForwardList<T>::clear()
+{
+
+}
+
+template<typename T>
+inline void tForwardList<T>::resize(size_t newSize)
+{
+	int track = 0;
+	Node * search = head;
+	while (track < newSize)
+	{
+		while (search != nullptr)
+		{
+			if (track >= newSize) { break; }
+			track++;
+			search = search->next;
+		}
+		if (search == nullptr)
+		{
+			pop_front();
+			search = head;
+			track++;
+		}
+	}
+	
+}
+
+template<typename T>
 inline tForwardList<T>::iterator::iterator()
 {
 	cur = nullptr;
