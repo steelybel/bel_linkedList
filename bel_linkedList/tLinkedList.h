@@ -11,23 +11,6 @@ class tForwardList
 	};
 
 	Node * head;                    // pointer to head of linked list
-	class iterator
-	{
-		Node * cur;                                 // current node being operated upon
-
-	public:
-		iterator();                                 // initializes an empty iterator pointing to null
-		iterator(Node * startNode);                 // initializes an iterator pointing to the given node
-
-		bool operator==(const iterator& rhs) const; // returns true if the iterator points to the same node
-		bool operator!=(const iterator& rhs) const; // returns false if the iterator does not point to the same node
-		T& operator*() const;                       // returns a reference to the element pointed to by the current node
-		iterator& operator++();                     // pre-increment (returns a reference to this iterator after it is incremented)
-		iterator operator++(int);                   // post-increment (returns an iterator to current node while incrementing the existing iterator)
-	};
-
-	iterator begin();
-	iterator end();
 
 public:
 	tForwardList();                 // initializes head to null
@@ -45,6 +28,24 @@ public:
 	void clear();                   // Destroys every single node in the linked list
 	void resize(size_t newSize);    // Resizes the linked list to contain the given number of elements
 									// New elements are default-initialized
+
+	class iterator
+	{
+		Node * cur;                                 // current node being operated upon
+
+	public:
+		iterator();                                 // initializes an empty iterator pointing to null
+		iterator(Node * startNode);                 // initializes an iterator pointing to the given node
+
+		bool operator==(const iterator& rhs) const; // returns true if the iterator points to the same node
+		bool operator!=(const iterator& rhs) const; // returns false if the iterator does not point to the same node
+		T& operator*() const;                       // returns a reference to the element pointed to by the current node
+		iterator& operator++();                     // pre-increment (returns a reference to this iterator after it is incremented)
+		iterator operator++(int);                   // post-increment (returns an iterator to current node while incrementing the existing iterator)
+	};
+
+	iterator begin();
+	iterator end();
 };
 
 template<typename T>
@@ -150,6 +151,12 @@ inline void tForwardList<T>::resize(size_t newSize)
 	
 }
 
+//template<typename T>
+//inline tForwardList<T>::iterator tForwardList<T>::begin()
+//{
+//	return iterator(head);
+//}
+
 template<typename T>
 inline tForwardList<T>::iterator::iterator()
 {
@@ -165,14 +172,12 @@ inline tForwardList<T>::iterator::iterator(Node * startNode)
 template<typename T>
 inline bool tForwardList<T>::iterator::operator==(const iterator & rhs) const
 {
-	while (cur != rhs.cur)
-	{
-		if (cur.next != nullptr)
-		{
-			cur = cur.next;
-		}
-	}
-	if (cur == rhs.cur) return true;
-	else return false;
-	
+	return (cur.data == rhs.cur.data);
+}
+
+template<typename T>
+inline typename tForwardList<T>::iterator & tForwardList<T>::iterator::operator++()
+{
+	cur = cur->next;
+	return *this;
 }
