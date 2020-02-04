@@ -151,11 +151,19 @@ inline void tForwardList<T>::resize(size_t newSize)
 	
 }
 
-//template<typename T>
-//inline tForwardList<T>::iterator tForwardList<T>::begin()
-//{
-//	return iterator(head);
-//}
+
+
+template<typename T>
+inline typename tForwardList<T>::iterator tForwardList<T>::begin()
+{
+	return iterator(head);
+}
+
+template<typename T>
+inline typename tForwardList<T>::iterator tForwardList<T>::end()
+{
+	return iterator(head);
+}
 
 template<typename T>
 inline tForwardList<T>::iterator::iterator()
@@ -166,7 +174,7 @@ inline tForwardList<T>::iterator::iterator()
 template<typename T>
 inline tForwardList<T>::iterator::iterator(Node * startNode)
 {
-	cur = &startNode;
+	cur = startNode;
 }
 
 template<typename T>

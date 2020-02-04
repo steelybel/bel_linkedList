@@ -1,3 +1,2 @@
 ﻿  main.cpp
-main.obj : error LNK2019: unresolved external symbol "public: class tForwardList<int>::iterator __thiscall tForwardList<int>::begin(void)" (?begin@?$tForwardList@H@@QAE?AViterator@1@XZ) referenced in function _main
-C:\Users\s199011\source\repos\bel_linkedList\Debug\bel_linkedList.exe : fatal error LNK1120: 1 unresolved externals
+  bel_linkedList.vcxproj -> C:\Users\s199011\source\repos\bel_linkedList\Debug\bel_linkedList.exe
