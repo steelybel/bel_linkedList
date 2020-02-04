@@ -162,7 +162,12 @@ inline typename tForwardList<T>::iterator tForwardList<T>::begin()
 template<typename T>
 inline typename tForwardList<T>::iterator tForwardList<T>::end()
 {
-	return iterator(head);
+	Node* ending;
+	while (ending != nullptr)
+	{
+		ending = ending->next;
+	}
+	return iterator(ending);
 }
 
 template<typename T>

@@ -1,11 +1,12 @@
-#include <stdlib.h>
 #include <iostream>
 #include "tLinkedList.h"
 int main()
 {
 	tForwardList<int> list;
-	auto it = tForwardList<int>::iterator();
-	auto it_ = list.begin();
+	for (auto it = list.begin(); it != list.end(); ++it)
+	{
+		std::cout << (*it) << std::endl;
+	}
 
 	//bool go = true;
 	//int input = 0;
