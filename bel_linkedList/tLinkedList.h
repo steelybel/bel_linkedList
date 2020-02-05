@@ -28,7 +28,6 @@ public:
 	void clear();                   // Destroys every single node in the linked list
 	void resize(size_t newSize);    // Resizes the linked list to contain the given number of elements
 									// New elements are default-initialized
-
 	class iterator
 	{
 		Node * cur;                                 // current node being operated upon
@@ -125,7 +124,7 @@ inline bool tForwardList<T>::empty() const
 template<typename T>
 inline void tForwardList<T>::clear()
 {
-
+	head = nullptr;
 }
 
 template<typename T>
@@ -162,17 +161,19 @@ inline typename tForwardList<T>::iterator tForwardList<T>::begin()
 template<typename T>
 inline typename tForwardList<T>::iterator tForwardList<T>::end()
 {
-	Node* ending;
-	while (ending != nullptr)
+	Node *temp = head;
+	while (temp != nullptr)
 	{
-		ending = ending->next;
+		temp = temp->next;
 	}
-	return iterator(ending);
+	return iterator(temp);
 }
 
 template<typename T>
 inline tForwardList<T>::iterator::iterator()
 {
+	/*cur = new Node();
+	cur->data = 0;*/
 	cur = nullptr;
 }
 
@@ -185,7 +186,19 @@ inline tForwardList<T>::iterator::iterator(Node * startNode)
 template<typename T>
 inline bool tForwardList<T>::iterator::operator==(const iterator & rhs) const
 {
-	return (cur.data == rhs.cur.data);
+	return (cur == rhs.cur);
+}
+
+template<typename T>
+inline bool tForwardList<T>::iterator::operator!=(const iterator & rhs) const
+{
+	return !(*this == rhs);
+}
+
+template<typename T>
+inline T & tForwardList<T>::iterator::operator*() const
+{
+	return *(&cur->data);
 }
 
 template<typename T>
@@ -193,4 +206,12 @@ inline typename tForwardList<T>::iterator & tForwardList<T>::iterator::operator+
 {
 	cur = cur->next;
 	return *this;
+}
+
+template<typename T>
+inline typename tForwardList<T>::iterator tForwardList<T>::iterator::operator++(int)
+{
+	iterator iter(*this);
+	cur = cur->next;
+	return iter;
 }
