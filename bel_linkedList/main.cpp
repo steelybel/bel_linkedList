@@ -7,7 +7,7 @@ int main()
 	{
 		list.push_front(4);
 	}
-	for (auto it = list.cbegin(); it != list.cend(); ++it)
+	for (auto it = list.begin(); it != list.end(); ++it)
 	{
 		std::cout << (*it) << std::endl;
 	}
