@@ -2,7 +2,7 @@
 #include "tLinkedList.h"
 int main()
 {
-	tForwardList<int> list;
+	tList<int> list;
 	for (int a = 0; a < 6; a++)
 	{
 		list.push_front(4);
@@ -39,7 +39,11 @@ int main()
 	}
 	std::cin >> input;
 	std::cout << std::endl;
-	list.clear();
+	list.push_back(3);
+	for (auto it = list.begin(); it != list.end(); ++it)
+	{
+		std::cout << (*it) << std::endl;
+	}
 	std::cin >> input;
 	std::cout << std::endl;
 	return 0;

@@ -2,25 +2,31 @@
 #pragma once
 
 template<typename T>
-class tForwardList
+class tList
 {
 	struct Node
 	{
 		T data;                     // data for the element stored
+		Node * prev;                // pointer to node following this node
 		Node * next;                // pointer to node following this node
 	};
 
 	Node * head;                    // pointer to head of linked list
+	Node * tail;                    // pointer to tail of linked list
 
 public:
-	tForwardList();                 // initializes head to null
-	~tForwardList();                // delete all nodes upon destruction
+	tList();                 // initializes head to null
+	~tList();                // delete all nodes upon destruction
 
 	void push_front(const T& val);  // adds element to front (i.e. head)
 	void pop_front();               // removes element from front
+	void push_back(const T& val);  // adds element to front (i.e. head)
+	void pop_back();               // removes element from front
 
 	T& front();                     // returns the element at the head
 	const T& front() const;         // returns the element at the head (const)
+	T& back();                     // returns the element at the head
+	const T& back() const;         // returns the element at the head (const)
 
 	void remove(const T& val);      // removes all elements equal to the given value
 
@@ -48,28 +54,39 @@ public:
 };
 
 template<typename T>
-inline tForwardList<T>::tForwardList()
+inline tList<T>::tList()
 {
 	head = nullptr;
 }
 
 template<typename T>
-inline tForwardList<T>::~tForwardList()
+inline tList<T>::~tList()
 {
 	delete head;
 }
 
 template<typename T>
-inline void tForwardList<T>::push_front(const T & val)
+inline void tList<T>::push_front(const T & val)
 {
 	Node * N = new Node();
 	N->data = val;
+	N->prev = nullptr;
 	N->next = head;
+	if (head != nullptr)
+	{
+		head->prev = N;
+		tail = head;
+	}
+	else
+	{
+		tail = N;
+	}
 	head = N;
+
 }
 
 template<typename T>
-inline void tForwardList<T>::pop_front()
+inline void tList<T>::pop_front()
 {
 	if (head != nullptr)
 	{
@@ -80,19 +97,49 @@ inline void tForwardList<T>::pop_front()
 }
 
 template<typename T>
-inline T & tForwardList<T>::front()
+inline void tList<T>::push_back(const T & val)
+{
+	Node * N = new Node();
+	N->data = val;
+	N->next = nullptr;
+	if (tail == nullptr)
+	{
+		N->prev = head;
+		head->next = N;
+	}
+	else
+	{
+		N->prev = tail;
+		N->next = nullptr;
+	}
+	tail = N;
+}
+
+template<typename T>
+inline void tList<T>::pop_back()
+{
+	if (head != nullptr)
+	{
+		Node * N = head;
+		head = head->next;
+		delete N;
+	}
+}
+
+template<typename T>
+inline T & tList<T>::front()
 {
 	return head.data;
 }
 
 template<typename T>
-inline const T & tForwardList<T>::front() const
+inline const T & tList<T>::front() const
 {
 	return head.data;
 }
 
 template<typename T>
-inline void tForwardList<T>::remove(const T & val)
+inline void tList<T>::remove(const T & val)
 {
 	while (head->data == val || head == nullptr)
 	{
@@ -115,20 +162,20 @@ inline void tForwardList<T>::remove(const T & val)
 }
 
 template<typename T>
-inline bool tForwardList<T>::empty() const
+inline bool tList<T>::empty() const
 {
 	if (head == nullptr) {	return true; }
 	return false;
 }
 
 template<typename T>
-inline void tForwardList<T>::clear()
+inline void tList<T>::clear()
 {
 	head = nullptr;
 }
 
 template<typename T>
-inline void tForwardList<T>::resize(size_t newSize)
+inline void tList<T>::resize(size_t newSize)
 {
 	int track = 0;
 	Node * search = head;
@@ -153,13 +200,13 @@ inline void tForwardList<T>::resize(size_t newSize)
 
 
 template<typename T>
-inline typename tForwardList<T>::iterator tForwardList<T>::begin()
+inline typename tList<T>::iterator tList<T>::begin()
 {
 	return iterator(head);
 }
 
 template<typename T>
-inline typename tForwardList<T>::iterator tForwardList<T>::end()
+inline typename tList<T>::iterator tList<T>::end()
 {
 	Node *temp = head;
 	while (temp != nullptr)
@@ -170,7 +217,7 @@ inline typename tForwardList<T>::iterator tForwardList<T>::end()
 }
 
 template<typename T>
-inline tForwardList<T>::iterator::iterator()
+inline tList<T>::iterator::iterator()
 {
 	/*cur = new Node();
 	cur->data = 0;*/
@@ -178,38 +225,38 @@ inline tForwardList<T>::iterator::iterator()
 }
 
 template<typename T>
-inline tForwardList<T>::iterator::iterator(Node * startNode)
+inline tList<T>::iterator::iterator(Node * startNode)
 {
 	cur = startNode;
 }
 
 template<typename T>
-inline bool tForwardList<T>::iterator::operator==(const iterator & rhs) const
+inline bool tList<T>::iterator::operator==(const iterator & rhs) const
 {
 	return (cur == rhs.cur);
 }
 
 template<typename T>
-inline bool tForwardList<T>::iterator::operator!=(const iterator & rhs) const
+inline bool tList<T>::iterator::operator!=(const iterator & rhs) const
 {
 	return !(*this == rhs);
 }
 
 template<typename T>
-inline T & tForwardList<T>::iterator::operator*() const
+inline T & tList<T>::iterator::operator*() const
 {
 	return *(&cur->data);
 }
 
 template<typename T>
-inline typename tForwardList<T>::iterator & tForwardList<T>::iterator::operator++()
+inline typename tList<T>::iterator & tList<T>::iterator::operator++()
 {
 	cur = cur->next;
 	return *this;
 }
 
 template<typename T>
-inline typename tForwardList<T>::iterator tForwardList<T>::iterator::operator++(int)
+inline typename tList<T>::iterator tList<T>::iterator::operator++(int)
 {
 	iterator iter(*this);
 	cur = cur->next;
