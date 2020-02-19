@@ -71,18 +71,22 @@ inline void tList<T>::push_front(const T & val)
 	Node * N = new Node();
 	N->data = val;
 	N->prev = nullptr;
-	N->next = head;
+	
 	if (head != nullptr)
 	{
-		head->prev = N;
-		tail = head;
+		N->next = head;
+		if (tail->prev == nullptr)
+		{
+			tail->prev = head;
+		}
+		head = N;
 	}
 	else
 	{
-		tail = N;
+		N->next = nullptr;
+		head = N;
+		tail = head;
 	}
-	head = N;
-
 }
 
 template<typename T>
@@ -91,6 +95,7 @@ inline void tList<T>::pop_front()
 	if (head != nullptr)
 	{
 		Node * N = head;
+		tail = tail->prev;
 		head = head->next;
 		delete N;
 	}
@@ -101,18 +106,10 @@ inline void tList<T>::push_back(const T & val)
 {
 	Node * N = new Node();
 	N->data = val;
+	N->prev = tail;
 	N->next = nullptr;
-	if (tail == nullptr)
-	{
-		N->prev = head;
-		head->next = N;
-	}
-	else
-	{
-		N->prev = tail;
-		N->next = nullptr;
-	}
-	tail = N;
+	tail->next = N;
+	tail = tail->next;
 }
 
 template<typename T>
@@ -120,9 +117,15 @@ inline void tList<T>::pop_back()
 {
 	if (head != nullptr)
 	{
-		Node * N = head;
-		head = head->next;
-		delete N;
+		if (tail != nullptr)
+		{
+			tail = tail->prev;
+			tail->next = nullptr;
+		}
+		else
+		{
+			head = nullptr;
+		}
 	}
 }
 
@@ -136,6 +139,18 @@ template<typename T>
 inline const T & tList<T>::front() const
 {
 	return head.data;
+}
+
+template<typename T>
+inline T & tList<T>::back()
+{
+	return tail->data;
+}
+
+template<typename T>
+inline const T & tList<T>::back() const
+{
+	return tail.data;
 }
 
 template<typename T>
