@@ -132,13 +132,13 @@ inline void tList<T>::pop_back()
 template<typename T>
 inline T & tList<T>::front()
 {
-	return head.data;
+	return head->data;
 }
 
 template<typename T>
 inline const T & tList<T>::front() const
 {
-	return head.data;
+	return head->data;
 }
 
 template<typename T>
@@ -150,7 +150,7 @@ inline T & tList<T>::back()
 template<typename T>
 inline const T & tList<T>::back() const
 {
-	return tail.data;
+	return tail->data;
 }
 
 template<typename T>
