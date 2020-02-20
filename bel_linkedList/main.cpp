@@ -3,31 +3,45 @@
 int main()
 {
 	tList<int> list;
-	for (int a = 0; a < 6; a++)
+	int input = 0;
+	std::cout << "How many values to insert from the front? >";
+	std::cin >> input;
+	for (int a = 0; a < input; a++)
 	{
 		list.push_front(a);
 	}
-	// list.clear();
-	bool go = true;
-	int input = 0;
-	for (int a = 0; a < 6; a++)
+	std::cout << "How many values to insert from the back? >";
+	std::cin >> input;
+	for (int a = 0; a < input; a++)
 	{
 		list.push_back(a);
 	}
+	std::cout << "Resulting list:" << std::endl;
 	for (auto it = list.begin(); it != list.end(); ++it)
 	{
 		std::cout << (*it) << std::endl;
 	}
-	std::cin >> input;
+	std::cin.ignore();
 	std::cout << std::endl;
-	std::cout << (list.back()) << std::endl;
+	std::cout << "The front of this list is " << (list.front()) << std::endl;
+	std::cout << "The back of this list is " << (list.back()) << std::endl;
+	std::cin.ignore();
+	std::cout << "How many values to remove from the front? >";
 	std::cin >> input;
-	std::cout << std::endl;
-	for (int a = 0; a < 4; a++)
+	for (int a = 0; a < input; a++)
 	{
 		list.pop_front();
 	}
-	std::cin >> input;
+	std::cout << "Resulting list:" << std::endl;
+	for (auto it = list.begin(); it != list.end(); ++it)
+	{
+		std::cout << (*it) << std::endl;
+	}
+	std::cin.ignore();
+	std::cout << std::endl;
+	std::cout << "The front of this list is " << (list.front()) << std::endl;
+	std::cout << "The back of this list is " << (list.back()) << std::endl;
+	std::cin.ignore();
 	std::cout << std::endl;
 	return 0;
 }
