@@ -95,7 +95,6 @@ inline void tList<T>::pop_front()
 	if (head != nullptr)
 	{
 		Node * N = head;
-		tail = tail->prev;
 		head = head->next;
 		delete N;
 	}
